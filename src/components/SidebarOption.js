@@ -3,12 +3,15 @@ import styled from 'styled-components'
 import {db} from "../firebase"
 
 
-const SidebarOption = ({Icon , title, addChannelOption}) => {
+const SidebarOption = ({Icon , title, addChannelOption, id}) => {
+    
+    
     const addChannel = () => {
             const channelName = prompt("Please enter the channel name")
+            // get channelName from user and push to db
             if(channelName) {
                 db.collection("rooms").add({
-                    name : channelName,
+                    name : channelName
                 })
             }
     }
@@ -56,5 +59,5 @@ const SidebarOptionContainer = styled.div `
 
 `
 const SidebarOptionChannel = styled.div`
-
+    
 `
