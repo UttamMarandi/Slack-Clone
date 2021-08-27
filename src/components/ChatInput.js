@@ -7,9 +7,9 @@ import firebase from 'firebase'
 import { useState } from 'react'
 
 
-const ChatInput = ({channelName, channelId, chatRef}) => {
+const ChatInput = ({channelName, channelId, chatRef, roomDetails}) => {
     const [input , setInput] = useState("")
-    console.log(channelId);
+    console.log("channelId",channelId);
     const sendMessage = (e) => {
         e.preventDefault()
          if(!channelId) {
@@ -33,7 +33,7 @@ const ChatInput = ({channelName, channelId, chatRef}) => {
     return (
         <ChatInputContainer>
             <form>
-                <input type="text" value={input} onChange = {e => setInput(e.target.value)} placeholder = {`Message ${channelName}`} />
+                <input type="text" value={input} onChange = {e => setInput(e.target.value)} placeholder = { roomDetails ?`Message ${channelName}`:`Select/Create Channel to start messaging`} />
                 <Button hidden type="submit" onClick= {sendMessage}> SEND
                 </Button>
             </form>
@@ -68,3 +68,4 @@ const ChatInputContainer = styled.div `
     }
 
 `
+

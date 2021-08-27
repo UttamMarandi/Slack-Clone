@@ -38,17 +38,22 @@ const Chat = () => {
     
     //onloading or changing room , scroll to bottom
     useEffect(()=>{
-        chatRef?.current?.scrollIntoView({
+        chatRef ?.current?.scrollIntoView({
             behavior : "smooth"
         })
     },[roomId,loading])
 
 
     return (
+        
         <ChatContainer>
+            {/* {roomDetails && roomMessages && (
+            //only if roomDetails & roomMessages is provided show rest
+            // need to use react fragment
+            <> */}
             <Header>
                 <HeaderLeft>
-                    <h4><strong>#{roomDetails?.data().name}</strong></h4>
+                    <h4><strong>#{roomDetails ? roomDetails?.data().name : `Select/Create Channel`}</strong></h4>
                     <StarBorderIcon/>
                 </HeaderLeft>
                 <HeaderRight>
@@ -67,6 +72,7 @@ const Chat = () => {
                             timestamp = {timestamp}
                             user = {user}
                             userImage = {userImage}
+                            
                         />
                     )
                 })}
@@ -79,8 +85,13 @@ const Chat = () => {
                 chatRef={chatRef}
                 channelName= {roomDetails?.data().name}
                 channelId = {roomId}
+                roomDetails = {roomDetails}
             />
+            {/* </>
+                
+            )} */}
         </ChatContainer>
+        
     )
 }
 
@@ -132,3 +143,10 @@ const HeaderRight = styled.div`
     }
 
 `
+
+//Bug fix : Scroll into view is not a function
+//so on process of removing the message undefined placeholder input form , we are suppoe to use short circuit operator so that JSX is rendered only when we have roomMessages and roomDetails , {roomDetails && roomMessages && (Component) 
+//it started showing an error that scroll into view is not a funciton
+//I could not find a cause, but found a workaround
+//in ChatInput.js in the form iteself , placeholder value should be a ternary operator which says that if roomDetails is true than only show channel name , if not tell the user to create/select a channel
+//same for channel name on top
