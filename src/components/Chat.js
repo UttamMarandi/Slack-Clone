@@ -20,6 +20,8 @@ import ChatInput from './ChatInput';
 
 
 const Chat = () => {
+        const[channels] = useCollection(db.collection("rooms"))
+
     const chatRef = useRef("")
     const roomId = useSelector(selectRoomId)
     const [roomDetails] = useDocument(roomId && db.collection("rooms").doc(roomId))
@@ -62,6 +64,7 @@ const Chat = () => {
                     </p>
                 </HeaderRight>
             </Header>
+            
             <ChatMessages>
                 {roomMessages?.docs.map((doc)=>{
                     const {message, timestamp, user, userImage} = doc.data()
@@ -80,6 +83,8 @@ const Chat = () => {
 
                 </ChatBottom>
             </ChatMessages>
+            
+            
 
             <ChatInput 
                 chatRef={chatRef}

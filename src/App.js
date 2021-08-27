@@ -24,7 +24,7 @@ function App() {
   //firebase authentication
   const [user, loading] = useAuthState(auth)
 
-  if(true) {
+  if(loading) {
     return(
       <AppLoading>
         <AppLoadingContainer>

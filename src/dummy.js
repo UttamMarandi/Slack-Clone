@@ -18,3 +18,93 @@
 
 // export {db , auth, provider}
 
+{roomDetails && roomMessages && (
+<ChatContainer>
+            
+            {/* //only if roomDetails & roomMessages is provided show rest
+            // need to use react fragment */}
+            
+            <Header>
+                <HeaderLeft>
+                    <h4><strong>#{roomDetails?.data().name}</strong></h4>
+                    <StarBorderIcon/>
+                </HeaderLeft>
+                <HeaderRight>
+                    <p>
+                        <InfoOutlinedIcon/> Details
+                    </p>
+                </HeaderRight>
+            </Header>
+            <ChatMessages>
+                {roomMessages?.docs.map((doc)=>{
+                    const {message, timestamp, user, userImage} = doc.data()
+                    return(
+                        <Message
+                            message= {message}
+                            // key = {doc.id}
+                            timestamp = {timestamp}
+                            user = {user}
+                            userImage = {userImage}
+                        />
+                    )
+                })}
+                <ChatBottom ref={chatRef}> 
+
+                </ChatBottom>
+            </ChatMessages>
+
+            <ChatInput 
+                chatRef={chatRef}
+                channelName= {roomDetails?.data().name}
+                channelId = {roomId}
+            />
+        </ChatContainer>
+
+)}
+
+
+<ChatContainer>
+            {/* {roomDetails && roomMessages && (
+            //only if roomDetails & roomMessages is provided show rest
+            // need to use react fragment
+            <> */}
+            <Header>
+                <HeaderLeft>
+                    <h4><strong>#{roomDetails?.data().name}</strong></h4>
+                    <StarBorderIcon/>
+                </HeaderLeft>
+                <HeaderRight>
+                    <p>
+                        <InfoOutlinedIcon/> Details
+                    </p>
+                </HeaderRight>
+            </Header>
+            <ChatMessages>
+                {roomMessages?.docs.map((doc)=>{
+                    const {message, timestamp, user, userImage} = doc.data()
+                    return(
+                        <Message
+                            message= {message}
+                            // key = {doc.id}
+                            timestamp = {timestamp}
+                            user = {user}
+                            userImage = {userImage}
+                        />
+                    )
+                })}
+                <ChatBottom ref={chatRef}> 
+
+                </ChatBottom>
+            </ChatMessages>
+
+            <ChatInput 
+                chatRef={chatRef}
+                channelName= {roomDetails?.data().name}
+                channelId = {roomId}
+            />
+            {/* </>
+                
+            )} */}
+        </ChatContainer>
+
+
