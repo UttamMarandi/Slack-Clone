@@ -64,7 +64,7 @@ const Chat = () => {
                     </p>
                 </HeaderRight>
             </Header>
-            
+           
             <ChatMessages>
                 {roomMessages?.docs.map((doc)=>{
                     const {message, timestamp, user, userImage} = doc.data()
