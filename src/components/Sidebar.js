@@ -2,7 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import SidebarOption from './SidebarOption';
 import {useCollection} from "react-firebase-hooks/firestore"
-import {db} from "../firebase"
+import {auth, db} from "../firebase"
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 //Icons
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
@@ -18,8 +19,10 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddIcon from '@material-ui/icons/Add';
 
+
 const Sidebar = () => {
     const[channels, loading, error] = useCollection(db.collection("rooms"))
+    const [user] = useAuthState(auth)
 
     return (
         <SidebarConatainer>
@@ -28,7 +31,7 @@ const Sidebar = () => {
                         <h2>SLACK CLONE</h2>
                         <h3>
                             <FiberManualRecordIcon/>
-                            Uttam Marandi
+                            {user.displayName}
                         </h3>
                     </SidebarInfo>
                     <CreateIcon/>

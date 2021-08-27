@@ -16,10 +16,11 @@ const db = firebaseApp.firestore()
 
 //get authentication
 const auth = firebase.auth()
+const provider = new firebase.auth.GoogleAuthProvider()
 
 
 //we need to export db and auth to have access to those outside this file
-export {db, auth}
+export {db, auth, provider}
 
 //Bug FIxes
 //1.Firebase module not found in src

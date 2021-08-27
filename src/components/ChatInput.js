@@ -2,12 +2,14 @@ import React from 'react'
 import styled from 'styled-components'
 import {Button} from "@material-ui/core"
 import { useRef } from 'react'
-import { db } from '../firebase'
+import { auth, db } from '../firebase'
 import firebase from 'firebase'
 import { useState } from 'react'
+import { useAuthState } from 'react-firebase-hooks/auth'
 
 
 const ChatInput = ({channelName, channelId, chatRef, roomDetails}) => {
+    const[user] = useAuthState(auth)
     const [input , setInput] = useState("")
     console.log("channelId",channelId);
     const sendMessage = (e) => {
@@ -18,8 +20,8 @@ const ChatInput = ({channelName, channelId, chatRef, roomDetails}) => {
         db.collection("rooms").doc(channelId).collection("messages").add({
             message: input,
             timestamp : firebase.firestore.FieldValue.serverTimestamp(),
-            user: "Uttam Marandi",
-            userImage:"https://scontent.fhyd16-1.fna.fbcdn.net/v/t1.6435-9/46492181_531692437299035_2509064819957563392_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=EtS5wvkmEuoAX8c8uRb&_nc_ht=scontent.fhyd16-1.fna&oh=afe8fd2401f0201dea82428646c60276&oe=614FB393"            
+            user: user.displayName,
+            userImage:user.photoURL,            
         })
         //on typing new message scroll into view
         chatRef.current.scrollIntoView({
