@@ -7,7 +7,7 @@ import firebase from 'firebase'
 import { useState } from 'react'
 
 
-const ChatInput = ({channelName, channelId}) => {
+const ChatInput = ({channelName, channelId, chatRef}) => {
     const [input , setInput] = useState("")
     console.log(channelId);
     const sendMessage = (e) => {
@@ -21,14 +21,19 @@ const ChatInput = ({channelName, channelId}) => {
             user: "Uttam Marandi",
             userImage:"https://scontent.fhyd16-1.fna.fbcdn.net/v/t1.6435-9/46492181_531692437299035_2509064819957563392_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=EtS5wvkmEuoAX8c8uRb&_nc_ht=scontent.fhyd16-1.fna&oh=afe8fd2401f0201dea82428646c60276&oe=614FB393"            
         })
-        setInput("")
+        //on typing new message scroll into view
+        chatRef.current.scrollIntoView({
+            behavior:"smooth"
+        })
 
+        setInput("")
+        
         
     }
     return (
         <ChatInputContainer>
             <form>
-                <input type="text" value={input} onChange = {e => setInput(e.target.value)} placeholder = {`Message #ROOM`} />
+                <input type="text" value={input} onChange = {e => setInput(e.target.value)} placeholder = {`Message ${channelName}`} />
                 <Button hidden type="submit" onClick= {sendMessage}> SEND
                 </Button>
             </form>
